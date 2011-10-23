@@ -26,8 +26,7 @@ test('raw post chunk', function (t) {
                 t.equal(req.url, '/beep');
                 
                 t.deepEqual(headers, {
-                    host : 'beep.boop',
-                    'transfer-encoding' : 'chunked',
+                    'transfer-encoding' : 'chunked'
                 });
             });
             
