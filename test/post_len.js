@@ -3,9 +3,9 @@ var parsley = require('../');
 var chunky = require('chunky');
 var Stream = require('net').Stream;
 
-test('get', function (t) {
+test('post length', function (t) {
+    t.plan(50 * 3);
     var pending = 50;
-    t.plan(50 * 2);
     
     Array(50+1).join('x').split('').forEach(function () {
         var stream = new Stream;
@@ -13,7 +13,7 @@ test('get', function (t) {
         
         parsley(stream, function (req) {
             req.on('headers', function (headers) {
-                t.equal(req.url, '/');
+                t.equal(req.url, '/hooray');
                 
                 t.deepEqual(headers, {
                     host : 'beep.boop',
@@ -21,7 +21,14 @@ test('get', function (t) {
                 });
             });
             
+            var data = '';
+            req.on('data', function (buf) {
+                data += buf.toString();
+            });
+            
             req.on('end', function () {
+                t.equal(data, 'abcdefg');
+                
                 if (--pending === 0) {
                     t.end();
                 }
@@ -29,11 +36,11 @@ test('get', function (t) {
         });
         
         var msg = new Buffer([
-            'GET / HTTP/1.1',
+            'POST /hooray HTTP/1.1',
             'Host: beep.boop',
-            'Connection: close',
+            'Content-Length: 7',
             '',
-            ''
+            'abcdefg'
         ].join('\r\n'));
         
         var chunks = chunky(msg);
