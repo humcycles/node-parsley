@@ -14,7 +14,6 @@ test('post chunk', function (t) {
         parsley(stream, function (req) {
             req.on('headers', function (headers) {
                 t.equal(req.url, '/hooray');
-                
                 t.deepEqual(headers, { host : 'beep.boop' });
             });
             
