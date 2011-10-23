@@ -24,6 +24,7 @@ Parser.prototype.execute = function (buf, start, len) {
                 var err = new Error('error parsing ' + this.mode);
                 this.request.emit('error', err);
             }
+            break;
         }
     }
 };

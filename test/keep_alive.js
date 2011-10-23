@@ -4,10 +4,10 @@ var chunky = require('chunky');
 var Stream = require('net').Stream;
 
 test('get', function (t) {
-    var pending = 50;
-    t.plan(50 * 2);
+    var pending = 1;
+    t.plan(pending * 4);
     
-    Array(50+1).join('x').split('').forEach(function () {
+    Array(pending + 1).join('x').split('').forEach(function () {
         var stream = new Stream;
         stream.readable = true;
         
@@ -37,7 +37,7 @@ test('get', function (t) {
                 t.equal(
                     rh.map(String).join(''),
                     [
-                        'GET /' + req.url + ' HTTP/1.1',
+                        'GET ' + req.url + ' HTTP/1.1',
                         'Host: ' + req.headers.host,
                         '',
                         ''
