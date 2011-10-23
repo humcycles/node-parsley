@@ -17,7 +17,7 @@ test('post length', function (t) {
                 
                 t.deepEqual(headers, {
                     host : 'beep.boop',
-                    connection : 'close',
+                    'content-length' : 7,
                 });
             });
             
