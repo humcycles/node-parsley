@@ -128,7 +128,8 @@ Emitted when all the `req.headers` have arrived.
 "end"
 -----
 
-Emitted when the request ends.
+Emitted when all the request data has been received, not including trailing
+framing such as the last newline.
 
 "rawHead", buf
 --------------
@@ -140,6 +141,11 @@ Emitted whenever any data comes in before the body.
 
 Emitted whenever any data comes in after the header but before the request ends
 for the case of keep-alive requests.
+
+"rawEnd"
+--------
+
+Emitter when the request is complete, including any trailing framing.
 
 "error", err
 ------------
