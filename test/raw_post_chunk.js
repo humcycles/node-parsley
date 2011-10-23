@@ -30,7 +30,7 @@ test('raw post chunk', function (t) {
                 });
             });
             
-            req.on('end', function () {
+            req.on('rawEnd', function () {
                 t.equal(
                     rh.map(String).join(''),
                     [

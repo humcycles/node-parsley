@@ -40,8 +40,7 @@ test('post length', function (t) {
             'Host: beep.boop',
             'Content-Length: 7',
             '',
-            'abcdefg',
-            ''
+            'abcdefg'
         ].join('\r\n'));
         
         var chunks = chunky(msg);
