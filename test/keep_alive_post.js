@@ -4,7 +4,7 @@ var chunky = require('chunky');
 var Stream = require('net').Stream;
 
 test('keep-alive post', function (t) {
-    var pending = 1;
+    var pending = 50;
     t.plan(pending * 3 * 3);
     var reqs = [
         {
@@ -52,10 +52,8 @@ test('keep-alive post', function (t) {
                 t.deepEqual(req.headers, r.headers);
                 t.equal(data, r.data);
                 
-                if (++i === 2) {
-                    if (--pending === 0) {
-                        t.end();
-                    }
+                if (++i === 3) {
+                    if (--pending === 0) t.end();
                 }
             });
         });
