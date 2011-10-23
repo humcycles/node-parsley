@@ -3,7 +3,7 @@ var parsley = require('../');
 var chunky = require('chunky');
 var Stream = require('net').Stream;
 
-test('get', function (t) {
+test('keep-alive get', function (t) {
     var pending = 1;
     t.plan(pending * 4);
     
