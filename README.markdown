@@ -9,6 +9,38 @@ similarly nefarious.
 example
 =======
 
+headers.js
+----------
+
+````javascript
+var parsley = require('parsley');
+var net = require('net');
+
+net.createServer(function (stream) {
+    parsley(stream, function (req) {
+        req.on('headers', function (headers) {
+            console.log(req.method + ' ' + req.url + 'HTTP/' + req.httpVersion);
+            console.dir(headers);
+        });
+    });
+}).listen(7000);
+````
+
+````
+$ curl localhost:7000/zing
+^C
+$ 
+````
+
+````
+$ node example/headers.js 
+GET /zingHTTP/1.1
+{ 'user-agent': 'curl/7.21.3 (x86_64-pc-linux-gnu) libcurl/7.21.3 OpenSSL/0.9.8o zlib/1.2.3.4 libidn/1.18',
+  host: 'localhost:7000',
+  accept: '*/*' }
+
+````
+
 raw.js
 ------
 
@@ -37,13 +69,13 @@ net.createServer(function (stream) {
 ````
 
 ````
-substack : node-parsley $ echo beep | curl -sNT. localhost:7000
+$ echo beep | curl -sNT. localhost:7000
 ^C
-substack : node-parsley $ 
+$ 
 ````
 
 ````
-substack : node-parsley $ node example/raw.js 
+$ node example/raw.js 
 [ 'PUT ',
   '/ ',
   'HTTP/',
@@ -87,6 +119,11 @@ The `http.IncomingMessage` that `cb` gets called with has these events:
 
 Emitted when data comes in not including the extra pieces like transfer-encoding
 framing.
+
+"headers", headers
+------------------
+
+Emitted when all the `req.headers` have arrived.
 
 "end"
 -----
