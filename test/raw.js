@@ -5,9 +5,9 @@ var Stream = require('net').Stream;
 
 test('raw get', function (t) {
     var pending = 50;
-    t.plan(50 * 4);
+    t.plan(pending * 4);
     
-    Array(50+1).join('x').split('').forEach(function () {
+    Array(pending + 1).join('x').split('').forEach(function () {
         var stream = new Stream;
         stream.readable = true;
         
